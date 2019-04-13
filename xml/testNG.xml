@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="demo"   >
+    <test name="testDemo" preserve-order="true">
+
+        <classes>
+            <class name="interface_test_framework_testng_maven.UnitTest"/>
+        </classes>
+    </test>
+
+</suite>
+

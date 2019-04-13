@@ -1,0 +1,13 @@
+/.idea
+/.gauge
+/.gradle
+/.allure
+/allure-results
+/build
+/out
+/logs
+/reports
+/target
+/db/data.db
+nohup.out
+*.iml

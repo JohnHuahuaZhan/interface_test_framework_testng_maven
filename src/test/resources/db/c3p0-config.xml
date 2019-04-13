@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c3p0-config>
+    <!-- This is default config! -->
+    <default-config>
+        <property name="initialPoolSize">1</property>
+        <property name="maxIdleTime">3</property>
+        <property name="maxPoolSize">8</property>
+        <property name="minPoolSize">6</property>
+        <property name="maxStatements">20</property>
+    </default-config>
+</c3p0-config>

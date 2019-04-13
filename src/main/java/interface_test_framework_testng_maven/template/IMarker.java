@@ -1,0 +1,16 @@
+package interface_test_framework_testng_maven.template;
+
+import java.util.Map;
+
+public interface IMarker {
+    /**
+     * 默认原样返回
+     * @param source
+     * @param map
+     * @return
+     * @throws Throwable
+     */
+    default String mark(String source, Map<String, Object> map) throws Throwable {
+        return source;
+    };
+}
