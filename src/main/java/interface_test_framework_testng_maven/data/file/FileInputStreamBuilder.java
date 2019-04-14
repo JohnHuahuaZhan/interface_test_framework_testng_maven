@@ -1,5 +1,6 @@
 package interface_test_framework_testng_maven.data.file;
 
+import interface_test_framework_testng_maven.data.IInputStreamBuilder;
 import interface_test_framework_testng_maven.data.InputStreamByteDataSource;
 import org.apache.commons.lang3.StringUtils;
 
@@ -7,7 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-public class FileInputStreamBuilder {
+public class FileInputStreamBuilder implements IInputStreamBuilder {
     public static enum FileSourceType{
         Class,
         ClassPath,
@@ -31,9 +32,9 @@ public class FileInputStreamBuilder {
         return this;
     }
 
-    public InputStreamByteDataSource build(){
+    public InputStream build(){
         InputStream inputStream = load();
-        return new InputStreamByteDataSource(inputStream);
+        return inputStream;
     }
 
 

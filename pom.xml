@@ -20,21 +20,9 @@
     <allure.version>2.10.0</allure.version>
     <testng.version>6.14.3</testng.version>
     <allure.report.path>${project.build.directory}/allure-results</allure.report.path>
-    <threads>2</threads>
+    <threads>1</threads>
   </properties>
   <repositories>
-    <repository>
-      <id>company</id>
-      <name>company</name>
-      <url>http://10.0.4.132:8081/nexus/content/groups/public/</url>
-      <layout>default</layout>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </repository>
     <repository>
       <id>ali</id>
       <name>ali</name>
@@ -129,7 +117,19 @@
       <artifactId>commons-csv</artifactId>
       <version>1.6</version>
     </dependency>
+
+    <dependency>
+    <groupId>com.google.inject.extensions</groupId>
+    <artifactId>guice-multibindings</artifactId>
+    <version>4.2.2</version>
+  </dependency>
+    <dependency>
+      <groupId>com.google.inject</groupId>
+      <artifactId>guice</artifactId>
+      <version>4.2.2</version>
+    </dependency>
   </dependencies>
+
 
   <build>
     <plugins>
