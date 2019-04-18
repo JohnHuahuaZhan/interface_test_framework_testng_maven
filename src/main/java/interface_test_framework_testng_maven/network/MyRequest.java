@@ -171,6 +171,11 @@ public class MyRequest {
         this.raw = raw;
     }
 
+    /**
+     * map中的内容会自动添加到Form-data请求体中
+     * @return
+     * @throws IOException
+     */
     public Request buildRequest() throws IOException {
         if(null == map)
             map = new HashMap<>();

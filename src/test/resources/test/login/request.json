@@ -1,5 +1,24 @@
 {
   "requests": [
-    ${login}
+    {
+      "tag": "login",
+      "scheme": "${scheme}",
+      "host": "${host}",
+      "port": "${port}",
+      "path": "${path}",
+      "method": "post",
+      "post_method": "URL_ENCODED",
+      "headers": {
+        "headerName": "headerValue"
+      },
+      "mimeBody": {},
+      "textBody": {
+        "cell": "${cell}",
+        "loginPassword": "${loginPassword}",
+        "selectedDefaultUserToLogin": "${selectedDefaultUserToLogin}",
+        "service": "${service}"
+      },
+      "requestCharset": "${requestCharset}"
+    }
   ]
 }
