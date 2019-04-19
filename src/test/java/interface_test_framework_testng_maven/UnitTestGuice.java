@@ -9,12 +9,13 @@ import interface_test_framework_testng_maven.template.IMarker;
 import org.testng.annotations.Guice;
 import org.testng.annotations.Test;
 
-@ByteDataSource(filePath = "classpath:test/login/request.json")
+@ByteDataSource(filePath = "classpath:test/login/this.txt")
 @Guice(moduleFactory = ByteDataSourceModuleFactory.class)
 public class UnitTestGuice {
 
     @Inject @Named("FilePath")
     IByteDataSource byteDataSource;
+
 
     @Inject @Named("Freemarker")
     IMarker marker;

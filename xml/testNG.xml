@@ -1,5 +1,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="kk测试套件">
+    <listeners>
+        <listener class-name="interface_test_framework_testng_maven.listeners.CommonHookListener"/>
+    </listeners>
     <!--公共的配置放这里-->
     <parameter name="scheme" value="http"/>
     <parameter name="host" value="mapi.kkbuluo.net"/>
@@ -19,7 +22,7 @@
         <classes>
             <class name="interface_test_framework_testng_maven.UnitTest" />
             <class name="interface_test_framework_testng_maven.UnitTestGuice" />
-
+            <class name="interface_test_framework_testng_maven.UnitTestGuiceMultiFile" />
             <class name="interface_test_framework_testng_maven.LoginParameterTest">
                 <parameter name="path" value="/client/service.json"/>
                 <parameter name="port" value="80"/>
@@ -31,7 +34,11 @@
                 <!--没有数据驱动可以尝试固定的数据写在这里-->
                 <parameter name="path" value="/client/service.json"/>
             </class>
-
+            <class name="interface_test_framework_testng_maven.LoginJsonMultiFileTest">
+                <!--类自己的参数放这里，覆盖全局配置-->
+                <!--没有数据驱动可以尝试固定的数据写在这里-->
+                <parameter name="path" value="/client/service.json"/>
+            </class>
         </classes>
     </test>
 </suite>

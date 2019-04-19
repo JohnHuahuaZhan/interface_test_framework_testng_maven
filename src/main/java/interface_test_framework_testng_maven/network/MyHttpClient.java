@@ -12,9 +12,9 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class MyHttpClient {
-    private static long  connectTimeout;
-    private static long  writeTimeout;
-    private static long  readTimeout;
+    private static long  connectTimeout = 6;
+    private static long  writeTimeout = 6;
+    private static long  readTimeout = 6;
 
     private static Map<String, String> commonHeader = new HashMap<>();
     private static ThreadLocal<OkHttpClient> threadLocal = new ThreadLocal<OkHttpClient>(){

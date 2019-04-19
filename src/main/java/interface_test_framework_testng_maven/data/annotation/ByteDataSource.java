@@ -10,7 +10,7 @@ import static java.lang.annotation.ElementType.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({TYPE})
 public @interface ByteDataSource {
-    String filePath() default "";
+    String filePath();
     Class cls() default ByteDataSource.class;
     String charset() default "utf-8";
 }

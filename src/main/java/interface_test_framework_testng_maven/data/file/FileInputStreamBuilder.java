@@ -1,7 +1,6 @@
 package interface_test_framework_testng_maven.data.file;
 
 import interface_test_framework_testng_maven.data.IInputStreamBuilder;
-import interface_test_framework_testng_maven.data.InputStreamByteDataSource;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.FileInputStream;
@@ -41,17 +40,25 @@ public class FileInputStreamBuilder implements IInputStreamBuilder {
     private InputStream load(){
         path = StringUtils.trim(path);
         switch(type){
-            case ClassPath:
-                if(StringUtils.startsWith(path,"\\")){
+            case ClassPath: {
+                if (StringUtils.startsWith(path, "\\")) {
                     path = StringUtils.strip(path, "\\");
                 }
-                if(!StringUtils.startsWith(path,"/")){
-                    path = "/"+path;
+                if (!StringUtils.startsWith(path, "/")) {
+                    path = "/" + path;
                 }
+                InputStream temp = cls.getResourceAsStream(path);
+                if(null == temp)
+                    throw new RuntimeException("classpath "+path + " not found");
                 return cls.getResourceAsStream(path);
-            case Class:
+            }
+            case Class: {
                 path = StringUtils.strip(path, "\\/");
-                return cls.getResourceAsStream(path);
+                InputStream temp = cls.getResourceAsStream(path);
+                if(null == temp)
+                    throw new RuntimeException("class  path "+path + " not found");
+                return temp;
+            }
             case Pure:
                 try {
                     InputStream temp = new FileInputStream(path);

@@ -5,7 +5,7 @@ import interface_test_framework_testng_maven.data.annotation.ByteDataSource;
 import interface_test_framework_testng_maven.data.file.StringPathFileByteDataSource;
 import org.testng.annotations.BeforeClass;
 
-public abstract class ClassLoadFileBase extends Base {
+public abstract class ClassLoadFileBase extends CommonBase {
     private String content;
 
     @BeforeClass

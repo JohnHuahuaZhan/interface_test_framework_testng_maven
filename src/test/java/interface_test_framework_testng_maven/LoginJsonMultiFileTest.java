@@ -4,14 +4,14 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import interface_test_framework_testng_maven.annotation.IgnoreNamedParam;
 import interface_test_framework_testng_maven.annotation.NamedParam;
-import interface_test_framework_testng_maven.data.annotation.ByteDataSource;
+import interface_test_framework_testng_maven.data.annotation.ByteDataSources;
 import interface_test_framework_testng_maven.data.test_data.dataProvider.CsvDataProvider;
 import interface_test_framework_testng_maven.data.test_data.dataProvider.DataProviders;
 import interface_test_framework_testng_maven.guice.module.common.MarkerModule;
 import interface_test_framework_testng_maven.network.MyRequest;
 import interface_test_framework_testng_maven.network.MyResponse;
 import interface_test_framework_testng_maven.template.IMarker;
-import interface_test_framework_testng_maven.test.ClassLoadFileBase;
+import interface_test_framework_testng_maven.test.MultiClassLoadFileBase;
 import interface_test_framework_testng_maven.test.process.IDeliverableHttpRequestProcessor;
 import interface_test_framework_testng_maven.test.process.IHttpPrePostExceptionCallback;
 import interface_test_framework_testng_maven.test.process.ListJSONHttpRequestPrePostExceptionProcessor;
@@ -27,8 +27,8 @@ import java.util.Map;
 
 
 @Guice(modules = {MarkerModule.class})
-@ByteDataSource(filePath = "classpath:test/login/request.json", charset = "utf-8")
-public class LoginJsonTest extends ClassLoadFileBase implements IHttpPrePostExceptionCallback{
+@ByteDataSources(filePaths = {"classpath:test/login/request.json", "classpath:test/login/other.txt"}, fileNames = {"json", "csv"})
+public class LoginJsonMultiFileTest extends MultiClassLoadFileBase implements IHttpPrePostExceptionCallback{
 
 
     @Inject
@@ -58,7 +58,9 @@ public class LoginJsonTest extends ClassLoadFileBase implements IHttpPrePostExce
 
 
 
-        String json = getFileContent();
+        String json = getFileContent().get("json");
+        String csv = getFileContent().get("csv");
+        System.out.println(csv);
         try {
             json = marker.mark(json, map);
 

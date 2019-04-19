@@ -129,10 +129,36 @@
       <version>4.2.2</version>
     </dependency>
   </dependencies>
-
+  <distributionManagement>
+    <repository>
+      <id>proj-releases</id>
+      <name>Proj Release Repository</name>
+      <url>http://10.0.4.132:8081/nexus/content/repositories/releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>proj-snapshots</id>
+      <name>Proj Snapshot Repository</name>
+      <url>http://10.0.4.132:8081/nexus/content/repositories/snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <configuration>
+          <attach>true</attach>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     <plugin>
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-surefire-plugin</artifactId>
@@ -146,10 +172,10 @@
         <properties>
 
           <!--并发执行suite文件-->
-          <property>
-            <name>suitethreadpoolsize</name>
-            <value>${threads}</value>
-          </property>
+          <!--<property>-->
+            <!--<name>suitethreadpoolsize</name>-->
+            <!--<value>${threads}</value>-->
+          <!--</property>-->
         </properties>
         <!--<workingDirectory>target/</workingDirectory>-->
 
@@ -230,6 +256,7 @@
       </plugins>
     </pluginManagement>
   </build>
+
 
 
 </project>
