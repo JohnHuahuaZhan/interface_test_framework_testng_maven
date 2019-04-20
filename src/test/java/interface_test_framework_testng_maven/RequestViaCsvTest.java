@@ -56,13 +56,13 @@ public class RequestViaCsvTest extends ClassLoadFileBase implements IHttpPrePost
         byte[] data = byteDataSource.getData();
         String json = new String(data);
 
-        HttpServer server = jsonHttpServer(12306, json(json));
+        HttpServer server = jsonHttpServer(12307, json(json));
         runner = runner(server);
         runner.start();
     }
 
     @Description("json登陆测试很详细的细节描述偶")
-    @Step("用户名 {cell} 密码 {loginPassword}")
+    @Step("用户名 {cell} 密码 {password}")
     @CsvDataProvider(path = "classpath:test/request/data.csv")
     @Test(dataProvider = "csv", dataProviderClass = DataProviders.class, description = "json登陆测试")
     public void login(@NamedParam("cell") String cell,

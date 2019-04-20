@@ -1,6 +1,7 @@
 package interface_test_framework_testng_maven.test.process;
 
 
+import interface_test_framework_testng_maven.context.Context;
 import interface_test_framework_testng_maven.data.IByteDataSource;
 import interface_test_framework_testng_maven.data.file.StringPathFileByteDataSource;
 import interface_test_framework_testng_maven.network.HttpRequestHelper;
@@ -27,9 +28,7 @@ public class ListJSONHttpRequestPrePostExceptionProcessor extends AbstractJSONHt
     }
 
     public ListJSONHttpRequestPrePostExceptionProcessor(String requestJsonString, IHttpPrePostExceptionCallback rulePrePostCallback, boolean needAutoPut) {
-        super(rulePrePostCallback);
-        this.requestJsonString = requestJsonString;
-        this.needAutoPut = needAutoPut;
+        this(requestJsonString, rulePrePostCallback, needAutoPut, ListJSONHttpRequestPrePostExceptionProcessor.class);
     }
 
     public ListJSONHttpRequestPrePostExceptionProcessor(String requestJsonString, IHttpPrePostExceptionCallback rulePrePostCallback, boolean needAutoPut, Class fileSourceClass) {
@@ -76,7 +75,8 @@ public class ListJSONHttpRequestPrePostExceptionProcessor extends AbstractJSONHt
 
 
             rulePrePostCallback.pre(request, response,deliverMap);
-
+            //发送请求解析完毕消息
+            notice(request);
             try {
                 response = MyHttpClient.request(request);
                 rulePrePostCallback.post(request,response,deliverMap);
@@ -113,5 +113,9 @@ public class ListJSONHttpRequestPrePostExceptionProcessor extends AbstractJSONHt
         } catch (Throwable throwable) {
             throw new RuntimeException(throwable.getMessage(), throwable);
         }
+    }
+
+    public void notice(MyRequest request){
+        Context.getInstance().notice(Context.REQUEST_PARSED_TYPE, request);
     }
 }

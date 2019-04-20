@@ -279,4 +279,17 @@ public class MyRequest {
 
         return builder.build();
     }
+
+    @Override
+    public String toString() {
+        return "MyRequest{" +
+                "tag='" + tag + '\'' +
+                ", scheme='" + scheme + '\'' +
+                ", host='" + host + '\'' +
+                ", path='" + path + '\'' +
+                ", port='" + port + '\'' +
+                ", method=" + method +
+                ", postMethod=" + postMethod +
+                '}';
+    }
 }

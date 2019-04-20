@@ -26,6 +26,7 @@
             <class name="interface_test_framework_testng_maven.CommonBaseTest" />
             <class name="interface_test_framework_testng_maven.ClassLoadFileBaseTest" />
             <class name="interface_test_framework_testng_maven.ClassLoadMultiFileBaseTest" />
+            <class name="interface_test_framework_testng_maven.NoticeTest" />
             <class name="interface_test_framework_testng_maven.RequestViaTestNGParameterTest">
                 <parameter name="path" value="/login"/>
                 <parameter name="port" value="12306"/>
@@ -34,7 +35,7 @@
             </class>
             <class name="interface_test_framework_testng_maven.RequestViaCsvTest">
                 <parameter name="path" value="/login"/>
-                <parameter name="port" value="12306"/>
+                <parameter name="port" value="12307"/>
                 <parameter name="method" value="post"/>
                 <parameter name="post_method" value="URL_ENCODED"/>
             </class>

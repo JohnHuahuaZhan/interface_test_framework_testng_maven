@@ -14,6 +14,9 @@ import java.util.Properties;
 import java.util.Set;
 
 public class Context {
+
+    public static final String REQUEST_PARSED_TYPE = "REQUEST_PARSED_TYPE";
+
     private static Context ourInstance = new Context();
 
     public static Context getInstance() {
@@ -24,6 +27,7 @@ public class Context {
     private Context() {
 
     }
+    private ContextObservable contextObservable = new ContextObservable();
 
     public NetworkConfig networkConfig = new NetworkConfig();
 
@@ -99,5 +103,13 @@ public class Context {
 
     public NetworkConfig getNetworkConfig() {
         return networkConfig;
+    }
+
+
+    public void addObserver(String type, Observer observer){
+        contextObservable.addObserver(type, observer);
+    }
+    public void notice(String type, Object arg){
+        contextObservable.notice(type, arg);
     }
 }
