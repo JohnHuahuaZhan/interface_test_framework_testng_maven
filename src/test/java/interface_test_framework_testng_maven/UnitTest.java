@@ -13,7 +13,7 @@ public class UnitTest {
 
     @Test(description = "测试数据源工具类")
     public void testByteDataSource(){
-        IByteDataSource byteDataSource = new StringPathFileByteDataSource("classpath:test/login/request.json", this.getClass());
+        IByteDataSource byteDataSource = new StringPathFileByteDataSource("classpath:test/base/this.txt", this.getClass());
         try {
             byte[] data = byteDataSource.getData();
             System.out.println(new String(data));
@@ -23,7 +23,7 @@ public class UnitTest {
     }
 
     @Description("测试csv共用数据驱动类")
-    @CsvDataProvider(path = "classpath:test/login/data.csv")
+    @CsvDataProvider(path = "classpath:test/base/data.csv")
     @Test(dataProvider = "csv", dataProviderClass = DataProviders.class)
     public void testCsvDataSource(String cell, String loginPassword, String selectedDefaultUserToLogin, String service){
         System.out.printf("%s, %s\n",cell, loginPassword);

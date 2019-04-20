@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import interface_test_framework_testng_maven.data.IByteDataSource;
 import interface_test_framework_testng_maven.data.annotation.ByteDataSources;
+import interface_test_framework_testng_maven.guice.module.annotation.GuiceByteDataSources;
 import interface_test_framework_testng_maven.guice.module.factory.ByteDataSourcesModuleFactory;
 import interface_test_framework_testng_maven.template.IMarker;
 import org.testng.annotations.Guice;
@@ -11,16 +12,13 @@ import org.testng.annotations.Test;
 
 import java.util.Map;
 
-@ByteDataSources(filePaths = {"classpath:test/login/this.txt", "classpath:test/login/other.txt"})
+@GuiceByteDataSources(filePaths = {"classpath:test/base/this.txt", "classpath:test/base/other.txt"})
 @Guice(moduleFactory = ByteDataSourcesModuleFactory.class)
 public class UnitTestGuiceMultiFile {
 
     @Inject @Named("FilePath")
     Map<String, IByteDataSource> byteDataSources;
 
-
-    @Inject @Named("Freemarker")
-    IMarker marker;
 
     @Test
     public void testGuice() throws Throwable {

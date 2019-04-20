@@ -4,10 +4,12 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import interface_test_framework_testng_maven.template.IMarker;
+import interface_test_framework_testng_maven.util.type.KeyValue;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -21,5 +23,14 @@ public class FreemarkerHelper implements IMarker {
         Writer stringWriter = new StringWriter();
         template.process(map, stringWriter);
         return stringWriter.toString();
+    }
+
+    @Override
+    public String mark(String source, KeyValue<String, Object>... kvs) throws Throwable {
+        Map<String, Object> map = new HashMap<>();
+        for (KeyValue<String, Object> kv : kvs) {
+           map.put(kv.getKey(), kv.getValue());
+        }
+        return mark(source, map);
     }
 }

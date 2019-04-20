@@ -128,6 +128,19 @@
       <artifactId>guice</artifactId>
       <version>4.2.2</version>
     </dependency>
+
+    <dependency>
+      <groupId>com.github.dreamhead</groupId>
+      <artifactId>moco-core</artifactId>
+      <version>0.12.0</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.github.dreamhead/moco-runner -->
+    <dependency>
+      <groupId>com.github.dreamhead</groupId>
+      <artifactId>moco-runner</artifactId>
+      <version>0.12.0</version>
+    </dependency>
   </dependencies>
   <distributionManagement>
     <repository>

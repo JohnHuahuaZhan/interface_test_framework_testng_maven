@@ -5,12 +5,11 @@
     </listeners>
     <!--公共的配置放这里-->
     <parameter name="scheme" value="http"/>
-    <parameter name="host" value="mapi.kkbuluo.net"/>
+    <parameter name="host" value="localhost"/>
     <parameter name="requestCharset" value="utf-8"/>
     <parameter name="responseCharset" value="utf-8"/>
-    <parameter name="port" value="80"/>
-    <parameter name="path" value="/client/service.json"/>
-    
+    <parameter name="port" value="8080"/>
+
     <!--init-->
     <test name="测试套件初始化测试集">
         <classes>
@@ -23,22 +22,32 @@
             <class name="interface_test_framework_testng_maven.UnitTest" />
             <class name="interface_test_framework_testng_maven.UnitTestGuice" />
             <class name="interface_test_framework_testng_maven.UnitTestGuiceMultiFile" />
-            <class name="interface_test_framework_testng_maven.LoginParameterTest">
-                <parameter name="path" value="/client/service.json"/>
-                <parameter name="port" value="80"/>
+            <class name="interface_test_framework_testng_maven.CommonBaseTest" />
+            <class name="interface_test_framework_testng_maven.ClassLoadFileBaseTest" />
+            <class name="interface_test_framework_testng_maven.ClassLoadMultiFileBaseTest" />
+            <class name="interface_test_framework_testng_maven.RequestViaTestNGParameterTest">
+                <parameter name="path" value="/login"/>
+                <parameter name="port" value="12306"/>
+                <parameter name="cell" value="17300000000"/>
+                <parameter name="password" value="123456"/>
+            </class>
+            <class name="interface_test_framework_testng_maven.RequestViaCsvTest">
+                <parameter name="path" value="/login"/>
+                <parameter name="port" value="12306"/>
+                <parameter name="method" value="post"/>
+                <parameter name="post_method" value="URL_ENCODED"/>
             </class>
 
-
-            <class name="interface_test_framework_testng_maven.LoginJsonTest">
-                <!--类自己的参数放这里，覆盖全局配置-->
-                <!--没有数据驱动可以尝试固定的数据写在这里-->
-                <parameter name="path" value="/client/service.json"/>
-            </class>
-            <class name="interface_test_framework_testng_maven.LoginJsonMultiFileTest">
-                <!--类自己的参数放这里，覆盖全局配置-->
-                <!--没有数据驱动可以尝试固定的数据写在这里-->
-                <parameter name="path" value="/client/service.json"/>
-            </class>
+            <!--<class name="interface_test_framework_testng_maven.RequestViaCsvTest">-->
+                <!--&lt;!&ndash;类自己的参数放这里，覆盖全局配置&ndash;&gt;-->
+                <!--&lt;!&ndash;没有数据驱动可以尝试固定的数据写在这里&ndash;&gt;-->
+                <!--<parameter name="path" value="/client/service.json"/>-->
+            <!--</class>-->
+            <!--<class name="interface_test_framework_testng_maven.LoginJsonMultiFileTest">-->
+                <!--&lt;!&ndash;类自己的参数放这里，覆盖全局配置&ndash;&gt;-->
+                <!--&lt;!&ndash;没有数据驱动可以尝试固定的数据写在这里&ndash;&gt;-->
+                <!--<parameter name="path" value="/client/service.json"/>-->
+            <!--</class>-->
         </classes>
     </test>
 </suite>

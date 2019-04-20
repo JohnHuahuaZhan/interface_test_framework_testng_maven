@@ -6,17 +6,15 @@
       "host": "${host}",
       "port": "${port}",
       "path": "${path}",
-      "method": "post",
-      "post_method": "URL_ENCODED",
+      "method": "${method}",
+      "post_method": "${post_method}",
       "headers": {
         "headerName": "headerValue"
       },
       "mimeBody": {},
       "textBody": {
         "cell": "${cell}",
-        "loginPassword": "${loginPassword}",
-        "selectedDefaultUserToLogin": "${selectedDefaultUserToLogin}",
-        "service": "${service}"
+        "password": "${password}"
       },
       "requestCharset": "${requestCharset}"
     }

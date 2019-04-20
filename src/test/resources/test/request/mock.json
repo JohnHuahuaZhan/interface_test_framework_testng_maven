@@ -1,0 +1,18 @@
+[
+  {
+    "description":"这是一个带forms参数的post登录请求",
+    "request":{
+      "uri":"/login",
+      "method":"post",
+      "forms":{
+        "cell":"17300000000",
+        "password": "123456"
+      }
+    },
+    "response":{
+      "json":{
+        "success":true
+      }
+    }
+  }
+]
