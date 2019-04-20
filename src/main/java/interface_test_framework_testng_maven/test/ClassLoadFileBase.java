@@ -9,7 +9,7 @@ public abstract class ClassLoadFileBase extends CommonBase {
     private String content;
 
     @BeforeClass
-    protected  void beforeClass() throws Throwable {
+    protected  void class_load_file_base_bc_load_file() throws Throwable {
         ByteDataSource byteDataSource = this.getClass().getAnnotation(ByteDataSource.class);
         if(byteDataSource == null){
             throw new RuntimeException("当你的类继承ClassLoadFileBase，类必须用ByteDataSource注释");

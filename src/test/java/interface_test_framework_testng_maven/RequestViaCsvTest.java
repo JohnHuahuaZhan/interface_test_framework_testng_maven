@@ -11,7 +11,6 @@ import interface_test_framework_testng_maven.data.annotation.ByteDataSource;
 import interface_test_framework_testng_maven.data.test_data.dataProvider.CsvDataProvider;
 import interface_test_framework_testng_maven.data.test_data.dataProvider.DataProviders;
 import interface_test_framework_testng_maven.guice.module.annotation.GuiceByteDataSource;
-import interface_test_framework_testng_maven.guice.module.common.MarkerModule;
 import interface_test_framework_testng_maven.guice.module.factory.ByteDataSourceModuleFactory;
 import interface_test_framework_testng_maven.network.MyRequest;
 import interface_test_framework_testng_maven.network.MyResponse;
@@ -41,17 +40,13 @@ import static com.github.dreamhead.moco.Runner.runner;
 @GuiceByteDataSource(filePath = "classpath:test/request/mock.json")
 @Guice(moduleFactory = ByteDataSourceModuleFactory.class)
 public class RequestViaCsvTest extends ClassLoadFileBase implements IHttpPrePostExceptionCallback{
-
-
     @Inject
     @Named("Freemarker")
     IMarker marker;
 
-
     @Inject
     @Named("FilePath")
     IByteDataSource byteDataSource;
-
 
     private Runner runner;
 
@@ -64,9 +59,7 @@ public class RequestViaCsvTest extends ClassLoadFileBase implements IHttpPrePost
         HttpServer server = jsonHttpServer(12306, json(json));
         runner = runner(server);
         runner.start();
-
     }
-
 
     @Description("json登陆测试很详细的细节描述偶")
     @Step("用户名 {cell} 密码 {loginPassword}")
@@ -76,27 +69,20 @@ public class RequestViaCsvTest extends ClassLoadFileBase implements IHttpPrePost
                       @NamedParam("password")String password,
                       @IgnoreNamedParam ITestContext context){
 
-
-
-
         Map<String, Object> map = new HashMap<>();
         //后来者覆盖前者
         map.putAll(super.getAllParameters());
         map.putAll(super.getParams());
 
-
-
         String json = getFileContent();
         try {
             json = marker.mark(json, map);
-
             IDeliverableHttpRequestProcessor prePostExceptionProcessor = new ListJSONHttpRequestPrePostExceptionProcessor(json, this, true);
             prePostExceptionProcessor.addDeliver(super.getAllParameters());
             prePostExceptionProcessor.start();
         } catch (Throwable throwable) {
             throw new RuntimeException(throwable.getMessage(),throwable);
         }
-
     }
 
     @Override
@@ -110,8 +96,7 @@ public class RequestViaCsvTest extends ClassLoadFileBase implements IHttpPrePost
         }
     }
 
-
-    @AfterClass
+    @AfterClass(alwaysRun = true)
     public void stopMock(){
         runner.stop();
     }

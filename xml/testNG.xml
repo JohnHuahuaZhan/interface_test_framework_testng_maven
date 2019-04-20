@@ -20,6 +20,7 @@
     <test name="测试demo" preserve-order="true">
         <classes>
             <class name="interface_test_framework_testng_maven.UnitTest" />
+            <class name="interface_test_framework_testng_maven.UnitAllureTest" />
             <class name="interface_test_framework_testng_maven.UnitTestGuice" />
             <class name="interface_test_framework_testng_maven.UnitTestGuiceMultiFile" />
             <class name="interface_test_framework_testng_maven.CommonBaseTest" />
@@ -37,17 +38,6 @@
                 <parameter name="method" value="post"/>
                 <parameter name="post_method" value="URL_ENCODED"/>
             </class>
-
-            <!--<class name="interface_test_framework_testng_maven.RequestViaCsvTest">-->
-                <!--&lt;!&ndash;类自己的参数放这里，覆盖全局配置&ndash;&gt;-->
-                <!--&lt;!&ndash;没有数据驱动可以尝试固定的数据写在这里&ndash;&gt;-->
-                <!--<parameter name="path" value="/client/service.json"/>-->
-            <!--</class>-->
-            <!--<class name="interface_test_framework_testng_maven.LoginJsonMultiFileTest">-->
-                <!--&lt;!&ndash;类自己的参数放这里，覆盖全局配置&ndash;&gt;-->
-                <!--&lt;!&ndash;没有数据驱动可以尝试固定的数据写在这里&ndash;&gt;-->
-                <!--<parameter name="path" value="/client/service.json"/>-->
-            <!--</class>-->
         </classes>
     </test>
 </suite>

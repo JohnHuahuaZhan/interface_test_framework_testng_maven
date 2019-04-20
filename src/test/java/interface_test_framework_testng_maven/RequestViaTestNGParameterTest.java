@@ -75,7 +75,7 @@ public class RequestViaTestNGParameterTest extends CommonBase {
         }
     }
 
-    @AfterClass
+    @AfterClass(alwaysRun = true)
     public void stopMock(){
         runner.stop();
     }

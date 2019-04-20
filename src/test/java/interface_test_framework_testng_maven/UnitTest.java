@@ -4,6 +4,7 @@ import interface_test_framework_testng_maven.data.IByteDataSource;
 import interface_test_framework_testng_maven.data.file.StringPathFileByteDataSource;
 import interface_test_framework_testng_maven.data.test_data.dataProvider.CsvDataProvider;
 import interface_test_framework_testng_maven.data.test_data.dataProvider.DataProviders;
+import io.qameta.allure.Attachment;
 import io.qameta.allure.Description;
 import org.testng.annotations.Test;
 
