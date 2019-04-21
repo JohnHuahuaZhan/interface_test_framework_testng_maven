@@ -1,0 +1,14 @@
+{
+  "connectTimeout":8,
+  "writeTimeout":8,
+  "readTimeout":8,
+  "commonHeaders":{
+    "appName":"test_center_interface_automation",
+    "appVersion":"1.0-SNAPSHOT",
+    "appUserAgent":"okHttp3",
+    "uuid":"10086",
+    "appDeviceId":"2-3-3-3-3",
+    "longitude":"233",
+    "latitude":"666"
+  }
+}

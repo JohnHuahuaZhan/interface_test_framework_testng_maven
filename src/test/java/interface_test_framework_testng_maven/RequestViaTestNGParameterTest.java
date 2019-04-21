@@ -11,10 +11,8 @@ import interface_test_framework_testng_maven.guice.module.factory.ByteDataSource
 import interface_test_framework_testng_maven.network.util.HttpRequestUtil;
 import interface_test_framework_testng_maven.test.CommonBase;
 import org.testng.AssertJUnit;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Guice;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,11 +34,12 @@ public class RequestViaTestNGParameterTest extends CommonBase {
 
     //mock服务，调试的时候用。可以删除后用正式的接口
     @BeforeClass
-    public void startMock() throws Throwable {
+    @Parameters("port")
+    public void startMock(int port) throws Throwable {
         byte[] data = byteDataSource.getData();
         String json = new String(data);
 
-        HttpServer server = jsonHttpServer(12306, json(json));
+        HttpServer server = jsonHttpServer(port, json(json));
         runner = runner(server);
         runner.start();
 
@@ -57,7 +56,7 @@ public class RequestViaTestNGParameterTest extends CommonBase {
 
 
         try {
-            byte[] bytes = HttpRequestUtil.post(
+            byte[] bytes = HttpRequestUtil.post(getKey(),
                     allParameters.get("scheme"),
                     allParameters.get("host"),
                     allParameters.get("path"),

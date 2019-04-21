@@ -37,4 +37,8 @@ public class TestContextUtil {
         testMap.putAll(classMap);
         return testMap;
     }
+
+    public static String getSuiteName(ITestContext context){
+        return  context.getSuite().getName();
+    }
 }

@@ -1,0 +1,25 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="that_test_suite">
+    <!--公共的配置放这里-->
+    <parameter name="scheme" value="http"/>
+    <parameter name="host" value="localhost"/>
+    <parameter name="requestCharset" value="utf-8"/>
+    <parameter name="responseCharset" value="utf-8"/>
+    <parameter name="port" value="8080"/>
+
+    <!--init-->
+    <test name="测试套件初始化测试集">
+        <classes>
+            <class name="interface_test_framework_testng_maven.init.Init"/>
+        </classes>
+    </test>
+    
+    <test name="demo1" preserve-order="true">
+        <classes>
+            <class name="interface_test_framework_testng_maven.MultiTestNgFileTestD" />
+            <class name="interface_test_framework_testng_maven.MultiTestNgFileTestE" />
+            <class name="interface_test_framework_testng_maven.MultiTestNgFileTestF" />
+        </classes>
+    </test>
+</suite>
+

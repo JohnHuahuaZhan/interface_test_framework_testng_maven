@@ -25,7 +25,7 @@ public class UnitTestGuiceMultiFile {
         for (Map.Entry<String, IByteDataSource> stringIByteDataSourceEntry : byteDataSources.entrySet()) {
             byte[] data = stringIByteDataSourceEntry.getValue().getData();
             String json = new String(data);
-            System.out.printf("%s,%s\n",stringIByteDataSourceEntry.getKey(), json);
+            System.out.printf("%s,%s@%s\n",stringIByteDataSourceEntry.getKey(), json, Thread.currentThread().getName());
         }
 
     }

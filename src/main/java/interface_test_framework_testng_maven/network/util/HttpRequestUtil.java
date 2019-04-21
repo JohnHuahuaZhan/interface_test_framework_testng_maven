@@ -42,7 +42,7 @@ public class HttpRequestUtil {
 
     }
 
-    public static byte[] post( String scheme,
+    public static byte[] post(String key,String scheme,
                         String host,
                         String path,
                         String port,
@@ -71,7 +71,7 @@ public class HttpRequestUtil {
                 break;
         }
 
-        MyResponse response = MyHttpClient.request(request);
+        MyResponse response = MyClientManager.getInstance().getClient(key).request(request);
         return response.bytes();
     }
 
@@ -86,14 +86,14 @@ public class HttpRequestUtil {
      * @return
      * @throws IOException
      */
-    public static byte[] post( String scheme,
+    public static byte[] post( String key,String scheme,
                         String host,
                         String path,
                         String port,
                         String requestCharset,
                         Map<String, String> data
     ) throws IOException {
-        return post(scheme, host, path, port, requestCharset, POST_URLENCODED, data, null, null, null);
+        return post(key,scheme, host, path, port, requestCharset, POST_URLENCODED, data, null, null, null);
     }
 
     /**
@@ -107,13 +107,14 @@ public class HttpRequestUtil {
      * @return
      * @throws IOException
      */
-    public static byte[] post( String scheme,
+    public static byte[] post( String key,
+                               String scheme,
                                String host,
                                String path,
                                String port,
                                String requestCharset,
                                Raw raw
     ) throws IOException {
-        return post(scheme, host, path, port, requestCharset, POST_RAW, null, null, null, raw);
+        return post(key,scheme, host, path, port, requestCharset, POST_RAW, null, null, null, raw);
     }
 }

@@ -20,7 +20,7 @@
     <allure.version>2.10.0</allure.version>
     <testng.version>6.14.3</testng.version>
     <allure.report.path>${project.build.directory}/allure-results</allure.report.path>
-    <threads>1</threads>
+    <threads>2</threads>
   </properties>
   <repositories>
     <repository>
@@ -181,14 +181,17 @@
         <testFailureIgnore>true</testFailureIgnore>
         <suiteXmlFiles>
           <file>xml/testNG.xml</file>
+          <file>xml/testNG1.xml</file>
+          <!--<file>xml/testNG-MultiFile1.xml</file>-->
+          <!--<file>xml/testNG-MultiFile2.xml</file>-->
         </suiteXmlFiles>
         <properties>
 
           <!--并发执行suite文件-->
-          <!--<property>-->
-            <!--<name>suitethreadpoolsize</name>-->
-            <!--<value>${threads}</value>-->
-          <!--</property>-->
+          <property>
+            <name>suitethreadpoolsize</name>
+            <value>${threads}</value>
+          </property>
         </properties>
         <!--<workingDirectory>target/</workingDirectory>-->
 

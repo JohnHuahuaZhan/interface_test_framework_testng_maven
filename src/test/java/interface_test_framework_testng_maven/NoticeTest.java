@@ -1,6 +1,7 @@
 package interface_test_framework_testng_maven;
 
 import interface_test_framework_testng_maven.context.Context;
+import interface_test_framework_testng_maven.context.ContextManager;
 import interface_test_framework_testng_maven.context.ContextObservable;
 import interface_test_framework_testng_maven.context.Observer;
 import interface_test_framework_testng_maven.data.IByteDataSource;
@@ -20,7 +21,7 @@ public class NoticeTest extends Base {
 
     @BeforeMethod
     public void bm(){
-        getContext().addObserver(message_type, new Observer() {
+        ContextManager.getInstance().getContext(getKey()).addObserver(message_type, new Observer() {
             @Override
             public void update(ContextObservable o, String type, Object arg) {
                 System.out.println("收到notice测试消息");
@@ -30,6 +31,6 @@ public class NoticeTest extends Base {
 
     @Test(description = "notice测试")
     public void testByteDataSource(){
-        getContext().notice(message_type, null);
+        ContextManager.getInstance().getContext(getKey()).notice(message_type, null);
     }
 }

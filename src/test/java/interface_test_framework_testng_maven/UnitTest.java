@@ -17,7 +17,7 @@ public class UnitTest {
         IByteDataSource byteDataSource = new StringPathFileByteDataSource("classpath:test/base/this.txt", this.getClass());
         try {
             byte[] data = byteDataSource.getData();
-            System.out.println(new String(data));
+            System.out.println(new String(data) +"@"+Thread.currentThread().getName());
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
@@ -27,7 +27,7 @@ public class UnitTest {
     @CsvDataProvider(path = "classpath:test/base/data.csv")
     @Test(dataProvider = "csv", dataProviderClass = DataProviders.class)
     public void testCsvDataSource(String cell, String loginPassword, String selectedDefaultUserToLogin, String service){
-        System.out.printf("%s, %s\n",cell, loginPassword);
+        System.out.printf("%s, %s@%s\n",cell, loginPassword,Thread.currentThread().getName());
     }
 
 }

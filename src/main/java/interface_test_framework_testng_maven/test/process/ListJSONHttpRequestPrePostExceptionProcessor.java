@@ -2,12 +2,10 @@ package interface_test_framework_testng_maven.test.process;
 
 
 import interface_test_framework_testng_maven.context.Context;
+import interface_test_framework_testng_maven.context.ContextManager;
 import interface_test_framework_testng_maven.data.IByteDataSource;
 import interface_test_framework_testng_maven.data.file.StringPathFileByteDataSource;
-import interface_test_framework_testng_maven.network.HttpRequestHelper;
-import interface_test_framework_testng_maven.network.MyHttpClient;
-import interface_test_framework_testng_maven.network.MyRequest;
-import interface_test_framework_testng_maven.network.MyResponse;
+import interface_test_framework_testng_maven.network.*;
 import interface_test_framework_testng_maven.util.common.RegexMatcher;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,18 +19,20 @@ public class ListJSONHttpRequestPrePostExceptionProcessor extends AbstractJSONHt
     protected String requestJsonString;
     private boolean needAutoPut;
     private Class fileSourceClass;
+    private String key;
     protected Map<String, String> deliverMap = new HashMap<>();
 
-    public ListJSONHttpRequestPrePostExceptionProcessor(String requestJsonString, IHttpPrePostExceptionCallback rulePrePostCallback) {
-        this(requestJsonString, rulePrePostCallback, false);
+    public ListJSONHttpRequestPrePostExceptionProcessor(String key,String requestJsonString, IHttpPrePostExceptionCallback rulePrePostCallback) {
+        this(key, requestJsonString, rulePrePostCallback, false);
     }
 
-    public ListJSONHttpRequestPrePostExceptionProcessor(String requestJsonString, IHttpPrePostExceptionCallback rulePrePostCallback, boolean needAutoPut) {
-        this(requestJsonString, rulePrePostCallback, needAutoPut, ListJSONHttpRequestPrePostExceptionProcessor.class);
+    public ListJSONHttpRequestPrePostExceptionProcessor(String key,String requestJsonString, IHttpPrePostExceptionCallback rulePrePostCallback, boolean needAutoPut) {
+        this(key, requestJsonString, rulePrePostCallback, needAutoPut, ListJSONHttpRequestPrePostExceptionProcessor.class);
     }
 
-    public ListJSONHttpRequestPrePostExceptionProcessor(String requestJsonString, IHttpPrePostExceptionCallback rulePrePostCallback, boolean needAutoPut, Class fileSourceClass) {
+    public ListJSONHttpRequestPrePostExceptionProcessor(String key, String requestJsonString, IHttpPrePostExceptionCallback rulePrePostCallback, boolean needAutoPut, Class fileSourceClass) {
         super(rulePrePostCallback);
+        this.key = key;
         this.requestJsonString = requestJsonString;
         this.needAutoPut = needAutoPut;
         this.fileSourceClass = fileSourceClass;
@@ -78,7 +78,7 @@ public class ListJSONHttpRequestPrePostExceptionProcessor extends AbstractJSONHt
             //发送请求解析完毕消息
             notice(request);
             try {
-                response = MyHttpClient.request(request);
+                response = MyClientManager.getInstance().getClient(this.key).request(request);
                 rulePrePostCallback.post(request,response,deliverMap);
             } catch (IOException e) {
                 rulePrePostCallback.exception(request,e,deliverMap);
@@ -116,6 +116,6 @@ public class ListJSONHttpRequestPrePostExceptionProcessor extends AbstractJSONHt
     }
 
     public void notice(MyRequest request){
-        Context.getInstance().notice(Context.REQUEST_PARSED_TYPE, request);
+        ContextManager.getInstance().getContext(this.key).notice(Context.REQUEST_PARSED_TYPE, request);
     }
 }

@@ -6,7 +6,7 @@ public class TimeUtil {
     public static interface  Callback<T,R> {
         R apply(T object);
     }
-    public static void wait(int time){
+    public static void sleep(int time){
         try {
             Thread.sleep(time);
         } catch (InterruptedException e) {
@@ -27,7 +27,7 @@ public class TimeUtil {
                     return o;
                 }
             }
-            TimeUtil.wait(poolingEvery);
+            TimeUtil.sleep(poolingEvery);
             spent+=poolingEvery;
             if(spent >= timeout)
                 throw new RuntimeException("wait time out for "+timeout);

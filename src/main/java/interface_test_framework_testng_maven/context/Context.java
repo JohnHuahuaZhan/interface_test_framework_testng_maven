@@ -3,11 +3,13 @@ package interface_test_framework_testng_maven.context;
 import interface_test_framework_testng_maven.context.config.NetworkConfig;
 import interface_test_framework_testng_maven.data.IByteDataSource;
 import interface_test_framework_testng_maven.data.file.StringPathFileByteDataSource;
+import interface_test_framework_testng_maven.network.MyClientManager;
 import interface_test_framework_testng_maven.network.MyHttpClient;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 
 import java.io.*;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -17,16 +19,14 @@ public class Context {
 
     public static final String REQUEST_PARSED_TYPE = "REQUEST_PARSED_TYPE";
 
-    private static Context ourInstance = new Context();
+    private String key;
+    private String pathPrefix;
 
-    public static Context getInstance() {
-        return ourInstance;
+    public Context(String key, String pathPrefix) {
+        this.key = key;
+        this.pathPrefix = pathPrefix;
     }
 
-
-    private Context() {
-
-    }
     private ContextObservable contextObservable = new ContextObservable();
 
     public NetworkConfig networkConfig = new NetworkConfig();
@@ -38,8 +38,11 @@ public class Context {
         loadNextWorkConfig();
     }
     public void loadProperties(){
-        String classpath = Context.class.getResource("/context").getPath();
-
+        URL url  = Context.class.getResource(String.format("/%s/%s", pathPrefix, "context"));
+        if(null == url){
+            throw new RuntimeException(String.format("/%s/%s 不存在", pathPrefix, "context"));
+        }
+        String classpath = url.getPath();
         if(StringUtils.startsWithAny(classpath,"/","\\") && System.getProperty("os.name").toLowerCase().startsWith("win")){
             classpath = StringUtils.substring(classpath, 1);
         }
@@ -71,7 +74,7 @@ public class Context {
     public void loadNextWorkConfig(){
         try{
 
-            IByteDataSource byteDataSource = new StringPathFileByteDataSource("classpath:context/network.json", this.getClass());
+            IByteDataSource byteDataSource = new StringPathFileByteDataSource(String.format("classpath:%s/%s/network.json", pathPrefix,"context"), this.getClass());
             String json = new String(byteDataSource.getData(), "utf-8");
 
             JSONObject root = new JSONObject(json);
@@ -79,17 +82,21 @@ public class Context {
             networkConfig.connectTimeout = Integer.valueOf(root.getInt("connectTimeout"));
             networkConfig.writeTimeout = Integer.valueOf(root.getInt("writeTimeout"));
             networkConfig.readTimeout = Integer.valueOf(root.getInt("readTimeout"));
-            MyHttpClient.setConnectTimeout(networkConfig.connectTimeout);
-            MyHttpClient.setReadTimeout(networkConfig.readTimeout);
-            MyHttpClient.setWriteTimeout(networkConfig.writeTimeout);
+
+            MyHttpClient myHttpClient = new MyHttpClient(this.key);
+            myHttpClient.setConnectTimeout(networkConfig.connectTimeout);
+            myHttpClient.setReadTimeout(networkConfig.readTimeout);
+            myHttpClient.setWriteTimeout(networkConfig.writeTimeout);
 
 
 
             JSONObject commonHeaders = root.getJSONObject("commonHeaders");
             Set<String> set = commonHeaders.keySet();
             for (String s : set) {
-                MyHttpClient.addCommonHeader(s, commonHeaders.getString(s));
+                myHttpClient.addCommonHeader(s, commonHeaders.getString(s));
             }
+
+            MyClientManager.getInstance().addClient(this.key, myHttpClient);
         }catch (Throwable e){
             throw new RuntimeException(e.getMessage(),e);
         }

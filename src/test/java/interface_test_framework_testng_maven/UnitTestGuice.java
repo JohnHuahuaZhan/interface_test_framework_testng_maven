@@ -29,6 +29,6 @@ public class UnitTestGuice {
         byte[] data = byteDataSource.getData();
         String json = new String(data);
         json = marker.mark(json, new KeyValue<String, Object>("name", "Trump"));
-        System.out.println(json);
+        System.out.println(json+"@"+Thread.currentThread().getName());
     }
 }

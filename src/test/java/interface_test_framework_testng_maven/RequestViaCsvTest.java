@@ -6,6 +6,7 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import interface_test_framework_testng_maven.annotation.IgnoreNamedParam;
 import interface_test_framework_testng_maven.annotation.NamedParam;
+import interface_test_framework_testng_maven.context.ContextManager;
 import interface_test_framework_testng_maven.data.IByteDataSource;
 import interface_test_framework_testng_maven.data.annotation.ByteDataSource;
 import interface_test_framework_testng_maven.data.test_data.dataProvider.CsvDataProvider;
@@ -22,10 +23,7 @@ import interface_test_framework_testng_maven.test.process.ListJSONHttpRequestPre
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import org.testng.ITestContext;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Guice;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -52,11 +50,12 @@ public class RequestViaCsvTest extends ClassLoadFileBase implements IHttpPrePost
 
     //mock服务，调试的时候用。可以删除后用正式的接口
     @BeforeClass
-    public void startMock() throws Throwable {
+    @Parameters("port")
+    public void startMock(int port) throws Throwable {
         byte[] data = byteDataSource.getData();
         String json = new String(data);
 
-        HttpServer server = jsonHttpServer(12307, json(json));
+        HttpServer server = jsonHttpServer(port, json(json));
         runner = runner(server);
         runner.start();
     }
@@ -77,7 +76,7 @@ public class RequestViaCsvTest extends ClassLoadFileBase implements IHttpPrePost
         String json = getFileContent();
         try {
             json = marker.mark(json, map);
-            IDeliverableHttpRequestProcessor prePostExceptionProcessor = new ListJSONHttpRequestPrePostExceptionProcessor(json, this, true);
+            IDeliverableHttpRequestProcessor prePostExceptionProcessor = new ListJSONHttpRequestPrePostExceptionProcessor(getKey(), json, this, true);
             prePostExceptionProcessor.addDeliver(super.getAllParameters());
             prePostExceptionProcessor.start();
         } catch (Throwable throwable) {
@@ -88,8 +87,8 @@ public class RequestViaCsvTest extends ClassLoadFileBase implements IHttpPrePost
     @Override
     public void post(MyRequest request, MyResponse response, Map<String, String> deliver) {
         try {
-            getContext().getProperty("host");
-            getContext().getNetworkConfig();
+            ContextManager.getInstance().getContext(getKey()).getProperty("host");
+            ContextManager.getInstance().getContext(getKey()).getNetworkConfig();
             System.out.println(response.string(deliver.get("responseCharset")));
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage(), e);

@@ -12,12 +12,18 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class MyHttpClient {
-    private static long  connectTimeout = 6;
-    private static long  writeTimeout = 6;
-    private static long  readTimeout = 6;
+    private  long  connectTimeout = 6;
+    private  long  writeTimeout = 6;
+    private  long  readTimeout = 6;
 
-    private static Map<String, String> commonHeader = new HashMap<>();
-    private static ThreadLocal<OkHttpClient> threadLocal = new ThreadLocal<OkHttpClient>(){
+    private String key;
+
+    public MyHttpClient(String key) {
+        this.key = key;
+    }
+
+    private  Map<String, String> commonHeader = new HashMap<>();
+    private  ThreadLocal<OkHttpClient> threadLocal = new ThreadLocal<OkHttpClient>(){
         @Override
         protected OkHttpClient initialValue() {
 
@@ -38,47 +44,43 @@ public class MyHttpClient {
             }
         }
     };
-
-    private MyHttpClient() {
-    }
-
-    public static Map<String, String> getCommonHeader() {
+    public  Map<String, String> getCommonHeader() {
         return commonHeader;
     }
 
-    public static void setCommonHeader(Map<String, String> commonHeader) {
-        MyHttpClient.commonHeader = commonHeader;
+    public  void setCommonHeader(Map<String, String> commonHeader) {
+        this.commonHeader = commonHeader;
     }
 
-    public static void addCommonHeader(String name, String value){
-        MyHttpClient.commonHeader.put(name, value);
+    public  void addCommonHeader(String name, String value){
+        this.commonHeader.put(name, value);
     }
-    public static long getConnectTimeout() {
+    public  long getConnectTimeout() {
         return connectTimeout;
     }
 
-    public static void setConnectTimeout(long connectTimeout) {
-        MyHttpClient.connectTimeout = connectTimeout;
+    public  void setConnectTimeout(long connectTimeout) {
+        this.connectTimeout = connectTimeout;
     }
 
-    public static long getWriteTimeout() {
-        return writeTimeout;
+    public  long getWriteTimeout() {
+        return this.writeTimeout;
     }
 
-    public static void setWriteTimeout(long writeTimeout) {
-        MyHttpClient.writeTimeout = writeTimeout;
+    public  void setWriteTimeout(long writeTimeout) {
+        this.writeTimeout = writeTimeout;
     }
 
-    public static long getReadTimeout() {
-        return readTimeout;
+    public  long getReadTimeout() {
+        return this.readTimeout;
     }
 
-    public static void setReadTimeout(long readTimeout) {
-        MyHttpClient.readTimeout = readTimeout;
+    public  void setReadTimeout(long readTimeout) {
+        this.readTimeout = readTimeout;
     }
 
-    public static OkHttpClient getClient(){
-        return threadLocal.get();
+    public  OkHttpClient getClient(){
+        return this.threadLocal.get();
     }
 
     /**
@@ -87,9 +89,9 @@ public class MyHttpClient {
      * @return
      * @throws IOException
      */
-    public static MyResponse request(MyRequest request) throws IOException {
-        request.setHeaderMap(commonHeader);
-        Call call = threadLocal.get().newCall(request.buildRequest());
+    public  MyResponse request(MyRequest request) throws IOException {
+        request.setHeaderMap(this.commonHeader);
+        Call call = this.threadLocal.get().newCall(request.buildRequest());
         Response response = call.execute();
         return new MyResponse(response);
     }

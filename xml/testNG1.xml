@@ -1,9 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <!--在多文件的时候，每个suite的name必须不一样！-->
-<suite name="suite_common" parallel="classes">
-    <listeners>
-        <listener class-name="interface_test_framework_testng_maven.listeners.CommonHookListener"/>
-    </listeners>
+<suite name="suite_common_1" parallel="classes">
     <!--公共的配置放这里-->
     <parameter name="scheme" value="http"/>
     <parameter name="host" value="localhost"/>
@@ -12,13 +9,13 @@
     <parameter name="port" value="8080"/>
 
     <!--init-->
-    <test name="测试套件初始化测试集">
+    <test name="测试套件初始化测试集1">
         <classes>
             <class name="interface_test_framework_testng_maven.init.Init"/>
         </classes>
     </test>
     
-    <test name="测试demo" preserve-order="true">
+    <test name="测试demo1" preserve-order="true">
         <classes>
             <class name="interface_test_framework_testng_maven.UnitTest" />
             <class name="interface_test_framework_testng_maven.UnitAllureTest" />
@@ -30,13 +27,13 @@
             <class name="interface_test_framework_testng_maven.NoticeTest" />
             <class name="interface_test_framework_testng_maven.RequestViaTestNGParameterTest">
                 <parameter name="path" value="/login"/>
-                <parameter name="port" value="12306"/>
+                <parameter name="port" value="12308"/>
                 <parameter name="cell" value="17300000000"/>
                 <parameter name="password" value="123456"/>
             </class>
             <class name="interface_test_framework_testng_maven.RequestViaCsvTest">
                 <parameter name="path" value="/login"/>
-                <parameter name="port" value="12307"/>
+                <parameter name="port" value="12309"/>
                 <parameter name="method" value="post"/>
                 <parameter name="post_method" value="URL_ENCODED"/>
             </class>
