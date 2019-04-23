@@ -76,6 +76,7 @@ public class ListJSONHttpRequestPrePostExceptionProcessor extends AbstractJSONHt
 
             rulePrePostCallback.pre(request, response,deliverMap);
             //发送请求解析完毕消息
+            request.addExtra("key",this.key);
             notice(request);
             try {
                 response = MyClientManager.getInstance().getClient(this.key).request(request);

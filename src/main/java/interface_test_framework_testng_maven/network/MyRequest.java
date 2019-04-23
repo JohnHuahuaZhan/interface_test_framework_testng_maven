@@ -41,7 +41,14 @@ public class MyRequest {
     Raw raw;
     String charset = "utf-8";
 
+    public Map<String, Object> extra = new HashMap<>();
 
+    public Object getExtra(String key){
+        return extra.get(key);
+    }
+    public void addExtra(String key, Object o){
+        extra.put(key, o);
+    }
     public String getScheme() {
         return scheme;
     }
