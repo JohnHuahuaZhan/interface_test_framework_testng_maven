@@ -1,15 +1,15 @@
 package interface_test_framework_testng_maven;
 
 import interface_test_framework_testng_maven.context.ContextManager;
-import interface_test_framework_testng_maven.data.test_data.dataProvider.CsvDataProvider;
-import interface_test_framework_testng_maven.data.test_data.dataProvider.DataProviders;
-import interface_test_framework_testng_maven.util.common.TimeUtil;
-import io.qameta.allure.Description;
+import org.testng.IAlterTestName;
+import org.testng.IAttributes;
+import org.testng.IClass;
+import org.testng.ITest;
 import org.testng.annotations.*;
 
 import java.util.Date;
 
-public class MultiTestNgFileTestA extends CommonBaseTest{
+public class MultiTestNgFileTestA extends CommonBaseTest implements ITest {
     @BeforeSuite
     public void multiTestNgFileTestA_bs(){
         System.out.printf("%s@%s#%s\n","multiTestNgFileTestA_bs",Thread.currentThread().getId(), new Date().getTime());
@@ -38,5 +38,10 @@ public class MultiTestNgFileTestA extends CommonBaseTest{
     @Test
     public void multiTestNgFileTestA_1(){
         System.out.printf("%s@%s#%s\n","multiTestNgFileTestA_1",Thread.currentThread().getId(), new Date().getTime());
+    }
+
+    @Override
+    public String getTestName() {
+        return null;
     }
 }

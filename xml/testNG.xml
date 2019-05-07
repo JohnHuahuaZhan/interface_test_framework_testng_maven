@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <!--在多文件的时候，每个suite的name必须不一样！-->
-<suite name="suite_common" parallel="classes">
+<suite name="suite_common">
     <listeners>
         <listener class-name="interface_test_framework_testng_maven.listeners.CommonHookListener"/>
     </listeners>

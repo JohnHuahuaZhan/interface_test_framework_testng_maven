@@ -6,9 +6,12 @@ import interface_test_framework_testng_maven.data.test_data.dataProvider.CsvData
 import interface_test_framework_testng_maven.data.test_data.dataProvider.DataProviders;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
 import org.testng.annotations.Test;
 
 
+
+@Epic("基础测试")
 public class UnitTest {
 
 
@@ -26,7 +29,7 @@ public class UnitTest {
     @Description("测试csv共用数据驱动类")
     @CsvDataProvider(path = "classpath:test/base/data.csv")
     @Test(dataProvider = "csv", dataProviderClass = DataProviders.class)
-    public void testCsvDataSource(String cell, String loginPassword, String selectedDefaultUserToLogin, String service){
+    public void testCsvDataSource(String memo, String cell, String loginPassword, String selectedDefaultUserToLogin, String service){
         System.out.printf("%s, %s@%s\n",cell, loginPassword,Thread.currentThread().getName());
     }
 

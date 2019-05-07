@@ -2,11 +2,15 @@ package interface_test_framework_testng_maven.test;
 
 import interface_test_framework_testng_maven.annotation.IgnoreNamedParam;
 import interface_test_framework_testng_maven.annotation.NamedParam;
+import interface_test_framework_testng_maven.annotation.Scenario;
 import interface_test_framework_testng_maven.util.testng.TestContextUtil;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.testng.ITest;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -14,7 +18,7 @@ import java.lang.reflect.Parameter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CommonBase extends Base {
+public class CommonBase extends Base implements ITest {
 
     private Map<String, String> allParameters;
     public Map<String, String> getAllParameters() {
@@ -73,5 +77,28 @@ public class CommonBase extends Base {
                     params.put(name, objects[i].toString());
             }
         }
+    }
+
+
+    //每次执行test的时候更新测试名称
+    private String testName;
+
+    @Override
+    public String getTestName() {
+        return testName;
+    }
+
+    @BeforeMethod
+    public void setTestName(Method m, Object[] objects){
+        Scenario withTestName = m.getAnnotation(Scenario.class);
+        if( null == withTestName){
+            Test test = m.getAnnotation(Test.class);
+            testName = test.description();
+            if(StringUtils.isEmpty(testName))
+                testName = m.getName();
+            return;
+        }
+        String template  = withTestName.template();
+        testName = String.format(template, objects);
     }
 }
