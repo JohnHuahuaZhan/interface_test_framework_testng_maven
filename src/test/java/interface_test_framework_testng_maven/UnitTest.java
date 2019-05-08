@@ -1,5 +1,6 @@
 package interface_test_framework_testng_maven;
 
+import interface_test_framework_testng_maven.annotation.Scenario;
 import interface_test_framework_testng_maven.data.IByteDataSource;
 import interface_test_framework_testng_maven.data.file.StringPathFileByteDataSource;
 import interface_test_framework_testng_maven.data.test_data.dataProvider.CsvDataProvider;
@@ -7,11 +8,14 @@ import interface_test_framework_testng_maven.data.test_data.dataProvider.DataPro
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 
 
 
-@Epic("基础测试")
+
+
+@Scenario("基础测试")
 public class UnitTest {
 
 

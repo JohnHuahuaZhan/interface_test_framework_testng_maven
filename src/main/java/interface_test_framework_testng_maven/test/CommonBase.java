@@ -6,6 +6,7 @@ import interface_test_framework_testng_maven.annotation.Scenario;
 import interface_test_framework_testng_maven.util.testng.TestContextUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.testng.IClass;
 import org.testng.ITest;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
@@ -80,25 +81,16 @@ public class CommonBase extends Base implements ITest {
     }
 
 
-    //每次执行test的时候更新测试名称
+    //每次执行class的时候更新class名称
     private String testName;
-
     @Override
     public String getTestName() {
-        return testName;
-    }
-
-    @BeforeMethod
-    public void setTestName(Method m, Object[] objects){
-        Scenario withTestName = m.getAnnotation(Scenario.class);
+        Scenario withTestName = this.getClass().getAnnotation(Scenario.class);
         if( null == withTestName){
-            Test test = m.getAnnotation(Test.class);
-            testName = test.description();
-            if(StringUtils.isEmpty(testName))
-                testName = m.getName();
-            return;
+            testName = this.getClass().getName();
+        }else {
+            testName = withTestName.value();
         }
-        String template  = withTestName.template();
-        testName = String.format(template, objects);
+        return testName;
     }
 }

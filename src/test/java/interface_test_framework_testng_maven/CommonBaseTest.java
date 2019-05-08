@@ -9,9 +9,12 @@ import interface_test_framework_testng_maven.data.test_data.dataProvider.DataPro
 import interface_test_framework_testng_maven.test.ClassLoadFileBase;
 import interface_test_framework_testng_maven.test.CommonBase;
 import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 
 
+@Scenario("公共基础基类正常场景测试")
 public class CommonBaseTest extends CommonBase {
     @Test(description = "测试公共基础基类获取方法名")
     public void it_is_a_beautiful_test_method_name(){
@@ -24,14 +27,14 @@ public class CommonBaseTest extends CommonBase {
     }
 
 
-    @Scenario(template = "基础基类测试")
+
     @Test(description = "测试scenario 测试方法没有参数")
     public void scenario(){
 
     }
 
 
-    @Scenario(template = "基础基类测试-自动获取参数列表【场景描述:%s，步骤：使用手机号%s,密码%s登录】")
+
     @Description("测试公共基础基类获取当前方法参数map")
     @CsvDataProvider(path = "classpath:test/base/data.csv")
     @Test(dataProvider = "csv", dataProviderClass = DataProviders.class)
