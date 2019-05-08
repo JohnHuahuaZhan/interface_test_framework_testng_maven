@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 
 
 
-@Scenario("基础测试")
+
 public class UnitTest {
 
 

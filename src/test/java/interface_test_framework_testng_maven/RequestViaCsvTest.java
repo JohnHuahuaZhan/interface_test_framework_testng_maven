@@ -6,6 +6,7 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import interface_test_framework_testng_maven.annotation.IgnoreNamedParam;
 import interface_test_framework_testng_maven.annotation.NamedParam;
+import interface_test_framework_testng_maven.annotation.Scenario;
 import interface_test_framework_testng_maven.context.ContextManager;
 import interface_test_framework_testng_maven.data.IByteDataSource;
 import interface_test_framework_testng_maven.data.annotation.ByteDataSource;
@@ -34,6 +35,8 @@ import static com.github.dreamhead.moco.MocoJsonRunner.jsonHttpServer;
 import static com.github.dreamhead.moco.Runner.runner;
 
 
+
+@Scenario("登录测试正常场景集合")
 @ByteDataSource(filePath = "classpath:test/request/request.json", charset = "utf-8")
 @GuiceByteDataSource(filePath = "classpath:test/request/mock.json")
 @Guice(moduleFactory = ByteDataSourceModuleFactory.class)
