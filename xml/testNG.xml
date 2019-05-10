@@ -28,6 +28,10 @@
             <class name="interface_test_framework_testng_maven.ClassLoadFileBaseTest" />
             <class name="interface_test_framework_testng_maven.ClassLoadMultiFileBaseTest" />
             <class name="interface_test_framework_testng_maven.NoticeTest" />
+        </classes>
+    </test>
+    <test name="登陆功能" preserve-order="true">
+        <classes>
             <class name="interface_test_framework_testng_maven.RequestViaTestNGParameterTest">
                 <parameter name="path" value="/login"/>
                 <parameter name="port" value="12306"/>

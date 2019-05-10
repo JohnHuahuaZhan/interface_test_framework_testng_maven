@@ -41,6 +41,17 @@ public class HttpRequestUtil {
         return myRequest;
 
     }
+    public static byte[] get(String key,String scheme,
+                               String host,
+                               String path,
+                               String port,
+                               String requestCharset,
+                               Map<String, String> data
+    ) throws IOException {
+        MyRequest request = build(scheme, host, path, port, requestCharset, MyRequest.Method.GET, null, data, null, null, null);
+        MyResponse response = MyClientManager.getInstance().getClient(key).request(request);
+        return response.bytes();
+    }
 
     public static byte[] post(String key,String scheme,
                         String host,

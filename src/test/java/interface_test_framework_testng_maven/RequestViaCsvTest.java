@@ -21,8 +21,7 @@ import interface_test_framework_testng_maven.test.ClassLoadFileBase;
 import interface_test_framework_testng_maven.test.process.IDeliverableHttpRequestProcessor;
 import interface_test_framework_testng_maven.test.process.IHttpPrePostExceptionCallback;
 import interface_test_framework_testng_maven.test.process.ListJSONHttpRequestPrePostExceptionProcessor;
-import io.qameta.allure.Description;
-import io.qameta.allure.Step;
+import io.qameta.allure.*;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 
@@ -35,7 +34,8 @@ import static com.github.dreamhead.moco.MocoJsonRunner.jsonHttpServer;
 import static com.github.dreamhead.moco.Runner.runner;
 
 
-
+@Epic("账户模块")
+@Feature("登陆")
 @Scenario("登录测试正常场景集合")
 @ByteDataSource(filePath = "classpath:test/request/request.json", charset = "utf-8")
 @GuiceByteDataSource(filePath = "classpath:test/request/mock.json")
@@ -63,6 +63,8 @@ public class RequestViaCsvTest extends ClassLoadFileBase implements IHttpPrePost
         runner.start();
     }
 
+
+    @Story("异常登陆")
     @Description("json登陆测试很详细的细节描述偶")
     @Step("用户名 {cell} 密码 {password}")
     @CsvDataProvider(path = "classpath:test/request/data.csv")

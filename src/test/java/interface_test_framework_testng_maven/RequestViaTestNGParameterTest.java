@@ -10,6 +10,9 @@ import interface_test_framework_testng_maven.guice.module.annotation.GuiceByteDa
 import interface_test_framework_testng_maven.guice.module.factory.ByteDataSourceModuleFactory;
 import interface_test_framework_testng_maven.network.util.HttpRequestUtil;
 import interface_test_framework_testng_maven.test.CommonBase;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import org.testng.AssertJUnit;
 import org.testng.annotations.*;
 
@@ -20,7 +23,8 @@ import static com.github.dreamhead.moco.MocoJsonRunner.jsonHttpServer;
 import static com.github.dreamhead.moco.Runner.runner;
 import static com.github.dreamhead.moco.Moco.json;
 
-
+@Epic("账户模块")
+@Feature("登陆")
 @GuiceByteDataSource(filePath = "classpath:test/request/mock.json")
 @Guice(moduleFactory = ByteDataSourceModuleFactory.class)
 public class RequestViaTestNGParameterTest extends CommonBase {
@@ -46,6 +50,8 @@ public class RequestViaTestNGParameterTest extends CommonBase {
     }
 
 
+
+    @Story("正常登陆")
     @Test(description = "通过testNG参数获取接口信息测试")
     public void login(){
         Map<String, String> allParameters = getAllParameters();
