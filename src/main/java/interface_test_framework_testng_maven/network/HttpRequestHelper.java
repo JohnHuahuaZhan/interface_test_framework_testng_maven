@@ -47,4 +47,7 @@ public class HttpRequestHelper {
         multiMapResult.putAll(mapMap);
         return multiMapResult;
     }
+    public static String getTextParam(MyRequest request, String key){
+        return getTextParams(request).get(key);
+    }
 }
