@@ -6,14 +6,13 @@ import io.qameta.allure.Attachment;
 import org.testng.IHookCallBack;
 import org.testng.IHookable;
 import org.testng.ITestResult;
-import org.testng.annotations.BeforeMethod;
+
+import java.util.Date;
 
 public class CommonHookListener implements IHookable {
-    IByteDataSource success = new StringPathFileByteDataSource("classpath:test/base/pass.png",this.getClass());
-
-    @Attachment(value = "测试通过", type = "image/gif")
-    public byte[] pass() throws Throwable {
-        return success.getData();
+    @Attachment(value = "测试通过", type = "text/plain")
+    public String pass() throws Throwable {
+        return new Date().toString();
     }
     @Attachment(value = "测试失败", type = "text/plain")
     public String failed() {
