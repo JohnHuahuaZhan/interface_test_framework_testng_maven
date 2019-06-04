@@ -18,7 +18,7 @@ import java.util.Set;
 public class Context {
 
     public static final String REQUEST_PARSED_TYPE = "REQUEST_PARSED_TYPE";
-
+    public static final String RESPONSE_PARSED_TYPE = "RESPONSE_PARSED_TYPE";
     private String key;
     private String pathPrefix;
 

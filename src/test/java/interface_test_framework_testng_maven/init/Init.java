@@ -3,6 +3,7 @@ package interface_test_framework_testng_maven.init;
 import interface_test_framework_testng_maven.context.Context;
 import interface_test_framework_testng_maven.context.ContextManager;
 import interface_test_framework_testng_maven.init.observer.RequestSignObserver;
+import interface_test_framework_testng_maven.init.observer.ResponseSignObserver;
 import interface_test_framework_testng_maven.util.testng.TestContextUtil;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeSuite;
@@ -14,6 +15,7 @@ public class Init {
         Context context = new Context(suiteName, suiteName);
         context.init();//初始化
         context.addObserver(Context.REQUEST_PARSED_TYPE, new RequestSignObserver());//订阅消息
+        context.addObserver(Context.RESPONSE_PARSED_TYPE, new ResponseSignObserver());//订阅消息
         ContextManager.getInstance().addContext(suiteName, context);
     }
 }

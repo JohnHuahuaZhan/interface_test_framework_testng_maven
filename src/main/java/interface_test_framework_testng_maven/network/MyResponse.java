@@ -3,12 +3,30 @@ package interface_test_framework_testng_maven.network;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MyResponse {
     private Response response;
     private byte[] bytes;
 
+    public byte[] getBytes() {
+        return bytes;
+    }
+
+    public void setBytes(byte[] bytes) {
+        this.bytes = bytes;
+    }
+
+    public Map<String, Object> extra = new HashMap<>();
+
+    public Object getExtra(String key){
+        return extra.get(key);
+    }
+    public void addExtra(String key, Object o){
+        extra.put(key, o);
+    }
     protected MyResponse(Response response) {
         this.response = response;
     }
