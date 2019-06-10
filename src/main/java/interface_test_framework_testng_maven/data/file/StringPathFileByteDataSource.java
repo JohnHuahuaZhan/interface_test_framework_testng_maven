@@ -16,7 +16,7 @@ import java.util.Optional;
  */
 public class StringPathFileByteDataSource implements IByteDataSource {
 
-    public static final String pattern = "^(\\w+):([\\w\\/\\\\\\.]+)$";
+    public static final String pattern = "^(\\w+?):([:\\w\\/\\\\\\.]+)$";
     byte[] content;//缓存
 
     private Optional<String> path;
