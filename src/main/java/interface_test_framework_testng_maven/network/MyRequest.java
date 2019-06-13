@@ -299,10 +299,10 @@ public class MyRequest {
 
         builder.url(url);
         for (Map.Entry<String, String> entry : commonHeaderMap.entrySet()) {
-            builder.addHeader(entry.getKey(), entry.getValue());
+            builder.header(entry.getKey(), entry.getValue());
         }
         for (Map.Entry<String, String> entry : headerMap.entrySet()) {
-            builder.addHeader(entry.getKey(), entry.getValue());
+            builder.header(entry.getKey(), entry.getValue());
         }
 
         return builder.build();
