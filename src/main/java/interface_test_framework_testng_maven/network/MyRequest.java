@@ -36,6 +36,7 @@ public class MyRequest {
     PostMethod postMethod = PostMethod.URL_ENCODED;
     Map<String, String> map = new HashMap<>();
     Map<String, String> headerMap = new HashMap<>();
+    Map<String, String> commonHeaderMap = new HashMap<>();
     Map<String, MultiFile> fileMap = new HashMap<>();
     Map<String, MultiText> multiMap = new HashMap<>();
     Raw raw;
@@ -62,6 +63,19 @@ public class MyRequest {
         this.needToDeliverMap = needToDeliverMap;
     }
 
+    public Map<String, String> getCommonHeaderMap() {
+        return commonHeaderMap;
+    }
+
+    public void setCommonHeaderMap(Map<String, String> commonHeaderMap) {
+        this.commonHeaderMap = commonHeaderMap;
+    }
+    public void addCommonHeader(String key, String value){
+        this.commonHeaderMap.put(key, value);
+    }
+    public String getCommonHeader(String key){
+        return this.commonHeaderMap.get(key);
+    }
     public Map<String, String> getHeaderMap() {
         return headerMap;
     }
@@ -284,7 +298,9 @@ public class MyRequest {
         }
 
         builder.url(url);
-
+        for (Map.Entry<String, String> entry : commonHeaderMap.entrySet()) {
+            builder.addHeader(entry.getKey(), entry.getValue());
+        }
         for (Map.Entry<String, String> entry : headerMap.entrySet()) {
             builder.addHeader(entry.getKey(), entry.getValue());
         }

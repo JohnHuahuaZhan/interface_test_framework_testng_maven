@@ -90,7 +90,7 @@ public class MyHttpClient {
      * @throws IOException
      */
     public  MyResponse request(MyRequest request) throws IOException {
-        request.setHeaderMap(this.commonHeader);
+        request.setCommonHeaderMap(this.commonHeader);
         Call call = this.threadLocal.get().newCall(request.buildRequest());
         Response response = call.execute();
         return new MyResponse(response);
