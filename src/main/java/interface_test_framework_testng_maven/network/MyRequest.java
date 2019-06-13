@@ -65,7 +65,12 @@ public class MyRequest {
     public Map<String, String> getHeaderMap() {
         return headerMap;
     }
-
+    public void addHeader(String key, String value){
+        this.headerMap.put(key, value);
+    }
+    public String getHeader(String key){
+        return this.headerMap.get(key);
+    }
     public void setHeaderMap(Map<String, String> headerMap) {
         this.headerMap = headerMap;
     }
