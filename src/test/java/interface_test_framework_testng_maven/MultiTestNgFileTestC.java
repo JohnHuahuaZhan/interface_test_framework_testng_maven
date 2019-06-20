@@ -33,5 +33,6 @@ public class MultiTestNgFileTestC extends CommonBase {
     @Test
     public void multiTestNgFileTestC_1(){
         System.out.printf("%s@%s#%s\n","multiTestNgFileTestC_1",Thread.currentThread().getId(), new Date().getTime());
+        ContextManager.getInstance().getContext(getKey()).getProperty("login");
     }
 }

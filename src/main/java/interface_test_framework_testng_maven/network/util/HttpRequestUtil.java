@@ -4,6 +4,7 @@ package interface_test_framework_testng_maven.network.util;
 import interface_test_framework_testng_maven.network.*;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class HttpRequestUtil {
@@ -11,6 +12,16 @@ public class HttpRequestUtil {
 
     public static final String POST_FORM_DATA = "POST_FORM_DATA";
     public static final String POST_RAW = "POST_RAW";
+    public static  Map<String, String> headerMap = new HashMap<>();
+
+    public static Map<String, String> getHeaderMap() {
+        return headerMap;
+    }
+
+    public static void setHeaderMap(Map<String, String> headerMap) {
+        HttpRequestUtil.headerMap = headerMap;
+    }
+
     private static MyRequest build(
             String scheme,
             String host,
@@ -36,10 +47,10 @@ public class HttpRequestUtil {
                 .setMultiMap(formTextData)
                 .setFileMap(formFileData)
                 .setRaw(raw);
-        ;
-
+        for (Map.Entry<String, String> entry : headerMap.entrySet()) {
+            myRequest.addHeader(entry.getKey(), entry.getValue());
+        }
         return myRequest;
-
     }
     public static byte[] get(String key,String scheme,
                                String host,

@@ -7,6 +7,8 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 /**
@@ -17,10 +19,15 @@ public class WaitTest{
     @Test(description = "测试wait工具类")
     public void test(){
         String tag = "android";
-        boolean b = Condition.waitForCondition(CoreMatchers.hasItem(tag), ()->getList(), 500, 6000);
+        boolean b = Condition.waitForCondition(CoreMatchers.hasItem(tag),WaitTest::getList , 500, 6000);
         Assert.assertEquals(b, true);
     }
-
+    @Test(description = "测试wait工具类")
+    public void test1(){
+        String tag = "android";
+        boolean b = Condition.waitForCondition(CoreMatchers.equalTo(tag), ()->"android", 500, 6000);
+        Assert.assertEquals(b, true);
+    }
     /**
      * 每次调用这个方法获取实际值
      * 每次轮询结束后调用
@@ -55,6 +62,18 @@ public class WaitTest{
         //list.add("android");
         list.add("ios");
         list.add("linux");
+        return list;
+    }
+    public static List<String> getListError1(){
+        List<String> list = new ArrayList<>();
+        //list.add("android");
+        list.add("www.ios.net");
+        list.add("www.linux.com");
+
+        list = list.stream().filter(t-> t.endsWith(".com")).collect(Collectors.toList());
+        System.out.println(list);
+        List<Integer> l = Stream.of(1,2,3,4,5,6).collect(Collectors.toList());
+
         return list;
     }
 }
