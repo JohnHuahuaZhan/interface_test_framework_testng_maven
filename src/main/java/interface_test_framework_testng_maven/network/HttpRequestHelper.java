@@ -32,6 +32,10 @@ public class HttpRequestHelper {
         op.get().getMap().remove(key);
     }
 
+    public static void addHeader(MyRequest request, String key, String value){
+        request.addHeader(key,value);
+    }
+
 
     public static String getTag(MyRequest request){
         return Optional.of(request.getTag()).orElse(INVALID_TAG_NAME);
