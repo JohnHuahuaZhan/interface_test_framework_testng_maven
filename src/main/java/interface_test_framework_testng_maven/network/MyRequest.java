@@ -47,6 +47,15 @@ public class MyRequest {
     public Object getExtra(String key){
         return extra.get(key);
     }
+
+    public Map<String, Object> getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Map<String, Object> extra) {
+        this.extra = extra;
+    }
+
     public void addExtra(String key, Object o){
         extra.put(key, o);
     }
