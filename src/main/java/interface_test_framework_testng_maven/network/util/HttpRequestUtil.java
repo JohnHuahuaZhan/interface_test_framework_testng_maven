@@ -52,14 +52,82 @@ public class HttpRequestUtil {
         }
         return myRequest;
     }
-    public static byte[] get(String key,String scheme,
+    public MyRequest buildRequest(
+            String scheme,
+            String host,
+            String path,
+            String port,
+            String requestCharset,
+            MyRequest.Method method,
+            MyRequest.PostMethod postMethod,
+            Map<String, String> data,
+            Map<String, MultiText> formTextData,
+            Map<String, MultiFile> formFileData,
+            Raw raw) throws IOException{
+        return build(scheme, host, path, port, requestCharset, method, postMethod, data, formTextData, formFileData, raw);
+    }
+    public static MyRequest buildGetRequest(
+            String scheme,
+            String host,
+            String path,
+            String port,
+            String requestCharset,
+            Map<String, String> data) throws IOException{
+        return build(scheme, host, path, port, requestCharset, MyRequest.Method.GET, null, data, null, null, null);
+    }
+    public static MyRequest buildPostRequest(
+            String scheme,
+            String host,
+            String path,
+            String port,
+            String requestCharset,
+            String postMethod,
+            Map<String, String> data,
+            Map<String, MultiText> formTextData,
+            Map<String, MultiFile> formFileData,
+            Raw raw) throws IOException{
+        MyRequest.PostMethod pm = null;
+        MyRequest request = null;
+        switch (postMethod){
+            case POST_URLENCODED:
+                pm = MyRequest.PostMethod.URL_ENCODED;
+                request = build(scheme, host, path, port, requestCharset, MyRequest.Method.POST, pm, data, null, null, null);
+                break;
+            case POST_FORM_DATA:
+                pm = MyRequest.PostMethod.FORM_DATA;
+                request = build(scheme, host, path, port, requestCharset, MyRequest.Method.POST, pm, null, formTextData, formFileData, null);
+                break;
+            case POST_RAW:
+                pm = MyRequest.PostMethod.RAW;
+                request = build(scheme, host, path, port, requestCharset, MyRequest.Method.POST, pm, null, null, null, raw);
+                break;
+        }
+        return request;
+    }
+    public static MyRequest buildPostRequest(String scheme,
+                                             String host,
+                                             String path,
+                                             String port,
+                                             String requestCharset,
+                                             Map<String, String> data) throws IOException {
+        return buildPostRequest(scheme, host, path, port, requestCharset, POST_URLENCODED, data, null, null, null);
+    }
+    public static MyRequest buildPostRequest(String scheme,
+                                             String host,
+                                             String path,
+                                             String port,
+                                             String requestCharset,
+                                             Raw raw) throws IOException {
+        return buildPostRequest(scheme, host, path, port, requestCharset, POST_RAW, null, null, null, raw);
+    }
+    public static byte[] get(String key, String scheme,
                                String host,
                                String path,
                                String port,
                                String requestCharset,
                                Map<String, String> data
     ) throws IOException {
-        MyRequest request = build(scheme, host, path, port, requestCharset, MyRequest.Method.GET, null, data, null, null, null);
+        MyRequest request = buildGetRequest(scheme, host, path, port, requestCharset, data);
         MyResponse response = MyClientManager.getInstance().getClient(key).request(request);
         return response.bytes();
     }
@@ -138,5 +206,12 @@ public class HttpRequestUtil {
                                Raw raw
     ) throws IOException {
         return post(key,scheme, host, path, port, requestCharset, POST_RAW, null, null, null, raw);
+    }
+
+    public static byte[] request( String key,
+                               MyRequest request
+    ) throws IOException {
+        MyResponse response = MyClientManager.getInstance().getClient(key).request(request);
+        return response.bytes();
     }
 }
