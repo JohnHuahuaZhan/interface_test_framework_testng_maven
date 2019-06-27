@@ -78,6 +78,8 @@ public class CommonBase extends Base implements ITest {
                     params.put(name, objects[i].toString());
             }
         }
+
+        allParameters.putAll(params);
     }
 
 

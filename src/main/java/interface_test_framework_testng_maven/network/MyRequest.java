@@ -53,9 +53,12 @@ public class MyRequest {
     }
 
     public void setExtra(Map<String, Object> extra) {
-        this.extra = extra;
+        extra = new HashMap<>();
+        putExtra(extra);
     }
-
+    public void putExtra(Map<String, Object> extra) {
+        this.extra.putAll(extra);
+    }
     public void addExtra(String key, Object o){
         extra.put(key, o);
     }
