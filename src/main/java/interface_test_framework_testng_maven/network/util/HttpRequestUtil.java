@@ -224,4 +224,10 @@ public class HttpRequestUtil {
         MyResponse response = MyClientManager.getInstance().getClient(key).request(request);
         return response.bytes();
     }
+    public static MyResponse requestResWithoutR( String key,
+                                  MyRequest request
+    ) throws IOException {
+        MyResponse response = MyClientManager.getInstance().getClient(key).request(request);
+        return response;
+    }
 }
