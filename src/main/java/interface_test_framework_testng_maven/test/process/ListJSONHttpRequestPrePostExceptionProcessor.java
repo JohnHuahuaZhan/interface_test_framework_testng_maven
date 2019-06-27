@@ -81,7 +81,10 @@ public class ListJSONHttpRequestPrePostExceptionProcessor extends AbstractJSONHt
             try {
                 response = MyClientManager.getInstance().getClient(this.key).request(request);
                 response.addExtra("key",this.key);
-                notice(response);
+                Map<String, Object> map = new HashMap<>();
+                map.put("request", request);
+                map.put("response", response);
+                notice(map);
                 rulePrePostCallback.post(request,response,deliverMap);
             } catch (IOException e) {
                 rulePrePostCallback.exception(request,e,deliverMap);
@@ -121,7 +124,7 @@ public class ListJSONHttpRequestPrePostExceptionProcessor extends AbstractJSONHt
     public void notice(MyRequest request){
         ContextManager.getInstance().getContext(this.key).notice(Context.REQUEST_PARSED_TYPE, request);
     }
-    public void notice(MyResponse response){
-        ContextManager.getInstance().getContext(this.key).notice(Context.RESPONSE_PARSED_TYPE, response);
+    public void notice(Map<String, Object> requestResponseMap){
+        ContextManager.getInstance().getContext(this.key).notice(Context.RESPONSE_PARSED_TYPE, requestResponseMap);
     }
 }
