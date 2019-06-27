@@ -77,9 +77,10 @@ public class ListJSONHttpRequestPrePostExceptionProcessor extends AbstractJSONHt
             rulePrePostCallback.pre(request, response,deliverMap);
             //发送请求解析完毕消息
             request.addExtra("key",this.key);
-            for (Map.Entry<String, String> stringStringEntry : this.deliverMap.entrySet()) {
-                request.addExtra(stringStringEntry.getKey(), stringStringEntry.getValue());
-            }
+
+            Map<String, String> temp = new HashMap<>();
+            temp.putAll(deliverMap);
+            request.addExtra("request_deliver", temp);
 
             notice(request);
             try {
