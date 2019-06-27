@@ -35,6 +35,16 @@ public class HttpRequestUtil {
             Map<String, MultiFile> formFileData,
             Raw raw
             ) throws IOException {
+
+
+        if(null == data)
+            data = new HashMap<>();
+        if(null == formTextData)
+            formTextData = new HashMap<>();
+        if(null == formFileData)
+            formFileData = new HashMap<>();
+        if(null == raw)
+            raw = new Raw();
         MyRequest myRequest = new MyRequest();
         myRequest.setScheme(scheme)
                 .setHost(host)
