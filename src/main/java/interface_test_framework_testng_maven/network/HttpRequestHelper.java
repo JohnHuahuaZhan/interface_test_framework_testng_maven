@@ -45,10 +45,14 @@ public class HttpRequestHelper {
         Map<String, String> mapMap=request.getMap();
         Map<String,String> multiMapResult=new HashMap<>();
         Map<String, MultiText> multiMap=request.getMultiMap();
-        for (Map.Entry<String, MultiText> multiTextEntry : multiMap.entrySet()) {
-            multiMapResult.put(multiTextEntry.getKey(),multiTextEntry.getValue().getValue());
+        if (!(null == multiMap)) {
+            for (Map.Entry<String, MultiText> multiTextEntry : multiMap.entrySet()) {
+                multiMapResult.put(multiTextEntry.getKey(), multiTextEntry.getValue().getValue());
+            }
         }
-        multiMapResult.putAll(mapMap);
+        if (!(null == mapMap)) {
+            multiMapResult.putAll(mapMap);
+        }
         return multiMapResult;
     }
     public static String getTextParam(MyRequest request, String key){
