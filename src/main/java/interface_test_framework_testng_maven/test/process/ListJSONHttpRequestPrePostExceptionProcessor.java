@@ -91,7 +91,7 @@ public class ListJSONHttpRequestPrePostExceptionProcessor extends AbstractJSONHt
                 map.put("response", response);
                 notice(map);
                 rulePrePostCallback.post(request,response,deliverMap);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 rulePrePostCallback.exception(request,e,deliverMap);
             }
         }
