@@ -66,11 +66,12 @@ public class SimpleTest {
     }
     @Test
     void test() throws Throwable {
-        IByteDataSource byteDataSource = new StringPathFileByteDataSource("classpath:test/base/resigned_kktribe.ipa", this.getClass());
-        byte[] bytes = byteDataSource.getData();
+       String s = "{\"tag\":\"login\",\"scheme\":\"{{.scheme}}\",\"host\":\"{{.mapiHost}}\",\"port\":\"{{.port}}\",\"path\":\"{{.path}}\",\"method\":\"post\",\"post_method\":\"URL_ENCODED\",\"mimeBody\":{},\"textBody\":{\"useCase\":\"{{.useCase}}\",\"loginPassword\":\"{{.loginPassword}}\",\"cell\":\"{{.cell}}\",\"selectedDefaultUserToLogin\":\"true\",\"service\":\"ONE_AUTH_LOGIN\",\"signKey\":\"needToReplaced\"},\"requestCharset\":\"utf-8\"}";
+       String result = Base64.encodeBase64String(s.getBytes());
+        System.out.println(result);
 
-        bytes = Base64.encodeBase64(bytes);
-        bytes = zip(bytes);
-        FileUtils.writeByteArrayToFile(new File("d:/base64zip"), bytes);
+        s = "scheme=http&mapiHost=mapi.chshop.com&port=80&path=/client/service.json&cell=13500000666&loginPassword=654321&useCase=true";
+        result = Base64.encodeBase64String(s.getBytes());
+        System.out.println(result);
     }
 }

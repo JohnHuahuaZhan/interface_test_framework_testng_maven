@@ -83,6 +83,7 @@ public class ListJSONHttpRequestPrePostExceptionProcessor extends AbstractJSONHt
             request.addExtra("request_deliver", temp);
 
             notice(request);
+            boolean anyRequestError = false;
             try {
                 response = MyClientManager.getInstance().getClient(this.key).request(request);
                 response.addExtra("key",this.key);
@@ -90,9 +91,12 @@ public class ListJSONHttpRequestPrePostExceptionProcessor extends AbstractJSONHt
                 map.put("request", request);
                 map.put("response", response);
                 notice(map);
-                rulePrePostCallback.post(request,response,deliverMap);
             } catch (Exception e) {
+                anyRequestError = true;
                 rulePrePostCallback.exception(request,e,deliverMap);
+            }
+            if(!anyRequestError){
+                rulePrePostCallback.post(request, response, deliverMap);
             }
         }
     }
